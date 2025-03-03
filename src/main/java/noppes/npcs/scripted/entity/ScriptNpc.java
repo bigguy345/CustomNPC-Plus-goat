@@ -3,6 +3,7 @@ package noppes.npcs.scripted.entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import noppes.npcs.NoppesUtilServer;
+import noppes.npcs.api.IActionManager;
 import noppes.npcs.api.IPos;
 import noppes.npcs.api.ITimers;
 import noppes.npcs.api.entity.ICustomNpc;
@@ -1372,4 +1373,8 @@ public class ScriptNpc<T extends EntityNPCInterface> extends ScriptLiving<T> imp
 	public void updateClient() { this.npc.updateClient(); }
 
 	public void updateAI() { this.npc.updateTasks(); }
+
+    public IActionManager getActionManager() {
+        return npc.actionManager;
+    }
 }
