@@ -175,8 +175,6 @@ public class FramePart implements IFramePart {
                 if (next != null) {
                     FramePart nextPart = next.frameParts.get(part);
                     float value = Ease.OUTQUINT.apply(getInterpolationValue());
-                    if (value == 1)
-                        System.out.println(value);
                     this.prevRotations[0] = ValueUtil.lerp(this.rotation[0] * pi, nextPart.rotation[0] * pi, value);
                     this.prevRotations[1] = ValueUtil.lerp(this.rotation[1] * pi, nextPart.rotation[1] * pi, value);
                     this.prevRotations[2] = ValueUtil.lerp(this.rotation[2] * pi, nextPart.rotation[2] * pi, value);
@@ -193,13 +191,15 @@ public class FramePart implements IFramePart {
     }
 
     public float getInterpolationValue() { // a 0-1 that lerps between currentFrame startTick and nextFrame startTick
+        if (parent.currentTick == 0)
+            return 0;
+
         Frame current = parent.frames.get(parent.currentFrame);
-        float currentTick = parent.currentTick + 1;
+        float currentTick = parent.currentTick + partialRotationTick;
         float startTick = current.startTick;
         float t = (currentTick - startTick) / current.duration;
 
-        if (currentTick > 1)
-            System.out.println(currentTick);
+        System.out.println(currentTick + " value " + t);
         return t;
     }
 
