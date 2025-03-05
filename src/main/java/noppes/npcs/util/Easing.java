@@ -9,11 +9,11 @@ public class Easing {
      * <p>
      * All function needs an input between 0 and 1
      *
-     * @deprecated Just use {@link Ease#invoke(float)}
+     * @deprecated Just use {@link Ease#apply(float)}
      */
     @Deprecated
     public static float easingFromEnum(Ease type, float f) {
-        return type != null ? type.invoke(f) : f;
+        return type != null ? type.apply(f) : f;
     }
 
     /**

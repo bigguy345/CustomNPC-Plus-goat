@@ -14,31 +14,23 @@ public enum Ease {
     INBOUNCE(33, Easing::inBounce), OUTBOUNCE(34, Easing::outBack), INOUTBOUNCE(35, Easing::inOutBounce);
 
     final byte id;
-    private final _F impl;
+    private final EasingFunction impl;
 
-    /**
-     * @param id   id
-     * @param impl implementation
-     */
-    Ease(byte id, _F impl){
+    Ease(byte id, EasingFunction impl){
         this.id = id;
         this.impl = impl;
     }
 
-    /**
-     * @param id   id
-     * @param impl implementation
-     */
-    Ease(int id, _F impl) {
+    Ease(int id, EasingFunction impl) {
         this((byte) id, impl);
     }
 
     /**
-     * Run the easing
+     * Apply the easing
      * @param f float between 0 and 1
      * @return ease(f)
      */
-    public float invoke(float f) {
+    public float apply(float f) {
         return impl.invoke(f);
     }
 
@@ -50,7 +42,7 @@ public enum Ease {
         return LINEAR;
     }
 
-    private interface _F {
+    private interface EasingFunction {
         float invoke(float f);
     }
 }
