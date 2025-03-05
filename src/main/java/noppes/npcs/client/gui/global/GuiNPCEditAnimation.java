@@ -25,7 +25,7 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
 
     private EnumAnimationPart editingPart = EnumAnimationPart.HEAD;
     private int frameIndex = 0;
-    public boolean playingAnimation = false;
+    public static boolean playingAnimation = false;
     private Frame prevFrame;
     private final GuiScreen parent;
     private long prevTick;
@@ -467,6 +467,7 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
             if (!this.playingAnimation || !data.isActive()) {
                 animation.currentFrame = 0;
                 animation.currentFrameTime = 0;
+                animation.currentTick = 0;
                 for (Frame frame : animation.frames) {
                     for (FramePart framePart : frame.frameParts.values()) {
                         framePart.prevRotations = new float[]{0,0,0};
@@ -508,12 +509,15 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
         AnimationData data = npc.display.animationData;
         if (!data.isActive() && this.playingAnimation) {
             this.playingAnimation = false;
+            data.animation.currentTick = 0;
             initGui();
         } else if (data.isActive()) {
             Frame currentFrame = (Frame) data.animation.currentFrame();
             long time = mc.theWorld.getTotalWorldTime();
             if (time != prevTick) {
                 if (currentFrame != null && !currentFrame.renderTicks) {
+                    if(playingAnimation)
+                        data.animation.currentTick++;
                     data.animation.increaseTime();
                 }
                 GuiNpcLabel label = this.getLabel(213);

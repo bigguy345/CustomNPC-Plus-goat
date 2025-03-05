@@ -178,6 +178,7 @@ public class GuiNPCManageAnimations extends GuiModelInterface2 implements IScrol
 			if (!this.playingAnimation || !data.isActive()) {
 				animation.currentFrame = 0;
 				animation.currentFrameTime = 0;
+                animation.currentTick = 0;
 				for (Frame frame : animation.frames) {
 					for (FramePart framePart : frame.frameParts.values()) {
 						framePart.prevRotations = new float[]{0,0,0};

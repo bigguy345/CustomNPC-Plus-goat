@@ -21,6 +21,9 @@ public class Frame implements IFrame {
 
 	private int colorMarker = 0xFFFFFF;
 
+    //Client
+    public int startTick;
+
 	public Frame(){}
 
 	public Frame(int duration) {
