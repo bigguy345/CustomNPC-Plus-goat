@@ -483,6 +483,7 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
         } else if (guibutton.id == 202) {
             this.playingAnimation = false;
             data.animation.paused = false;
+            animation.currentTick = 0;
         } else if (guibutton.id == 34) {
             setSubGui(new SubGuiAnimationOptions(this.animation));
         } else if (guibutton.id == 52 && editingFrame != null) {
@@ -501,13 +502,12 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
 
         initGui();
     }
-
     @Override
     public void drawScreen(int par1, int par2, float par3)
     {
         AnimationData data = npc.display.animationData;
         if (!data.isActive() && this.playingAnimation) {
-            this.playingAnimation = false;
+             this.playingAnimation = false;
              data.animation.currentTick = 0;
             initGui();
         } else if (data.isActive()) {
@@ -515,8 +515,8 @@ public class GuiNPCEditAnimation extends GuiModelInterface implements ITextfield
             long time = mc.theWorld.getTotalWorldTime();
             if (time != prevTick) {
                 if (currentFrame != null && !currentFrame.renderTicks) {
-                      if (playingAnimation)
-                     data.animation.currentTick++;
+                      if (playingAnimation && !animation.paused)
+                          data.animation.currentTick++;
                     data.animation.increaseTime();
                 }
                 GuiNpcLabel label = this.getLabel(213);

@@ -195,7 +195,8 @@ public class FramePart implements IFramePart {
             return 0;
 
         Frame current = parent.frames.get(parent.currentFrame);
-        float currentTick = parent.currentTick + partialRotationTick;
+        float partialTicks = parent.paused? 0 : partialRotationTick;
+        float currentTick = parent.currentTick + partialTicks;
         float startTick = current.startTick;
         float t = (currentTick - startTick) / current.duration;
 
